@@ -1,4 +1,4 @@
 discord-bot/bin
 discord-bot/obj
-
+discord-bot/env-variables.env
 .vscode
