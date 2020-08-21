@@ -1,4 +1,4 @@
-bin
-obj
+discord-bot/bin
+discord-bot/obj
 
 .vscode
