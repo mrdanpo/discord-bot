@@ -20,11 +20,17 @@ namespace discord_bot.Modules
             try
             {
                 var joke = await _jokeClient.GetJoke();
+
+                if (string.IsNullOrEmpty(joke?.Joke))
+                {
+                    await ReplyAsync("I can't think of a joke right now.");
+                }
+
                 await ReplyAsync(joke.Joke);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
-                // TODO
+                Console.WriteLine(e.Message);
             }
         }
     }
