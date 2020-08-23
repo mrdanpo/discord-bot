@@ -49,10 +49,14 @@ namespace discord_bot
                 .AddSingleton<CommandService>()
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<LogService>()
+                .AddTransient<IGifService, GifService>()
                 .AddSingleton(_configuration);
 
             services.AddRefitClient<IJokeClient>(new RefitSettings())
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri(_configuration["clients:joke:url"]));
+
+            services.AddRefitClient<IGifClient>(new RefitSettings())
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(_configuration["clients:gif:url"]));
 
             return services.BuildServiceProvider();
         }
