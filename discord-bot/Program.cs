@@ -50,6 +50,7 @@ namespace discord_bot
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<LogService>()
                 .AddTransient<IGifService, GifService>()
+                .AddSingleton<IAudioService, AudioService>()
                 .AddSingleton(_configuration);
 
             services.AddRefitClient<IJokeClient>(new RefitSettings())
