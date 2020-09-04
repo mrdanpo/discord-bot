@@ -1,12 +1,17 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+##See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as build
+WORKDIR /src
+COPY ["discord-bot/discord-bot.csproj", "discord-bot/"]
+COPY . .
+WORKDIR "/src/discord-bot"
+RUN dotnet publish "discord-bot.csproj" -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1 as final
+
+RUN apt-get update && apt-get install -y libopus0 libsodium23 ffmpeg
+RUN apt-get install -y libogg0 opus-tools libopusfile0 libopus-dev libsodium-dev
+
+COPY --from=build /app .
 WORKDIR /app
-
-COPY ./ ./
-RUN dotnet restore
-RUN dotnet publish -c Release -o out
-
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1 AS runtime
-WORKDIR /app
-COPY --from=build /app/out ./
-
 ENTRYPOINT ["dotnet", "discord-bot.dll"]

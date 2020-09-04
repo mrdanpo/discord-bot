@@ -1,4 +1,13 @@
+.vs
+
+bin
+obj
 discord-bot/bin
 discord-bot/obj
-discord-bot/env-variables.env
-.vscode
+
+env-variables.env
+
+discord-bot/ffmpeg.exe
+discord-bot/opus.dll
+discord-bot/libsodium.dll
+discord-bot/assets
